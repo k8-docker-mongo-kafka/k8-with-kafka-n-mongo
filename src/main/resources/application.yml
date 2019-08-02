@@ -4,29 +4,18 @@ spring:
   cloud:
     stream:
       kafka:
-        binder:
-          brokers: localhost:9092
+        binder: 
           auto-create-topics: true
           
       bindings:
         output: 
           destination: outputtopic
           content-type: application/json 
-  data:
-    mongodb: 
-      username: devuser
-      password: devuser
-      database: dev
-      port: 27017
-      host: localhost   
+ 
+   
+     
 server:
   port: 8500
-  ssl: 
-    key-store-type: JKS
-    key-store: C:\Backup_verizon_end\Northern_Trust\POC\SSL\app\clientkeystore.jks
-    key-store-password: client
-    key-alias: client
-    enabled: true 
-    
+
 
   
