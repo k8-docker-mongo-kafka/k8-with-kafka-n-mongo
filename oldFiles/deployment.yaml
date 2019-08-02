@@ -1,0 +1,51 @@
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  name: kafka
+  namespace: dev
+  labels:
+    app: kafkatest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafkatest
+  template:
+    metadata:
+      labels:
+        app: kafkatest
+    spec:
+      containers:
+        - name: kafkatest
+          image: docker.io/abbiee9/kafkatest:v1
+          ports:
+          - name: nfs
+            containerPort: 8500
+            protocol: TCP
+          env:
+            - name: spring.data.mongodb.username
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-connection-details
+                  key: mongo.user
+            - name: spring.data.mongodb.password
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-connection-details
+                  key: mongo.password
+            - name: spring.data.mongodb.database
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-connection-details
+                  key:  mongo.db
+            - name: spring.data.mongodb.port
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-connection-details
+                  key: mongo.port
+            - name: spring.data.mongodb.host
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-connection-details
+                  key: mongo.host
+             
